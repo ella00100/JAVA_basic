@@ -2,27 +2,36 @@ package edu.oopfirst;
 
 import java.util.Scanner;
 
-//Person class ; class는 객체를 생산하는 틀
 class Person{  
 	
-	public Person()
+	public Person() //생성자
 	{
 		System.out.println("난 Person 기본 생성자~");
 	}
 	
-	public Person(String pname, int page)
-	{	name = pname;
-		age = page;
-		
+	public Person(String name, int age)
+	{	this.name = name;
+		this.age = age;
 	}
+	
+	
+	private final int IQ = 140;
+	
+	static char blood = 'A';
 	
 	private String name = null; // 캡슐화 된 name 필드(상태) 생성
 	
-	public void setName(String pname) //공개된 setName 매서드를 생성하여 name에 접근 
-	{	name = pname; }
+	public static void display()
+	{
+			System.out.printf("blood=%c\n",blood);
+//			System.out.printf("name%s\n", name);    //name변수는 객체와 관련된 인스턴스 변수
+	}
+	
+	public void setName(String name) //공개된 setName 매서드를 생성하여 name에 접근 
+	{	this.name = name; }
 	
 	public String getName() //name을 반환하는 공개된 getName 메서드 생성 
-	{	return name; }
+	{	return this.name; }
 
 	
 	private int age = 0;  //age 필드 생성
@@ -35,7 +44,16 @@ class Person{
 	
 	
 	public void talk() // talk 메서드(동작) 생성 _ 반환 값이 없으므로 void
-	{ System.out.println("말하기 !! "); }
+	{ System.out.println("말하기 !! "); }	
+	
+	public void talk(String shouting) // 메서드 이름이 같지만 파라미터로 구분 
+	{ System.out.printf(shouting); }
+	
+	public void talk(String shouting, int page) // 2번째 overloading
+	{ System.out.printf("%s\t%d\n",shouting,page); }
+	
+	public void talk(int page, String shouting)
+	{  System.out.printf("%d\t%s\n",page,shouting);  }	
 	
 	public void breath()  //breath 메서드 생성
 	{ System.out.println("호흡"); }
@@ -57,6 +75,7 @@ public class OOP0130 {
 		
 		
 		Person dungdung = new Person("둥이", 13);
+		dungdung.display();
 		System.out.printf("dungdung 이름 = %s\n", dungdung.getName());
 		System.out.printf("dungdung 나이 = %d\n", dungdung.getAge());
 		dungdung.breath();
@@ -73,7 +92,11 @@ public class OOP0130 {
 		System.out.printf("gildong 나이 = %d\n", gildong.getAge());
 		
 		gildong.talk();
+		gildong.talk("공부합시다잉~!\n");
+		gildong.talk("길동",gildong.getAge());
+		dungdung.talk(dungdung.getAge(),"둥둥이~~");
 		gildong.breath();
+		
 	}
 
 }
